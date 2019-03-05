@@ -7,10 +7,11 @@ public class Spell : MonoBehaviour {
     public int animNum;
     public float startTime;
     public float waitTime;
+    public string pos;
 
 	// Use this for initialization
 	void Start () {
-		
+        
 	}
 	
 	// Update is called once per frame

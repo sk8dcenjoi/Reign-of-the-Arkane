@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
     private GameObject player;
     private Animator anim;
     [SerializeField] float speed;
-    [SerializeField] GameObject leftHand,rightHand;
+    [SerializeField] GameObject leftHand,rightHand,leftFoot,rightFoot;
     private bool attacking;
     private int attackNum;
     private bool grounded = true;
@@ -19,6 +19,7 @@ public class Controller : MonoBehaviour
     private string forward;
     bool left = false;
     bool right = true;
+    public string currentButton;
 
     GameObject currentSpell;
     private float startTime, waitTime;
@@ -46,6 +47,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(Input.anyKeyDown);
         if (Input.GetAxis(forward) < 0 && rot == transform.rotation.eulerAngles && right && !attacking)
         {
             float newY = rot.y + 180;
@@ -72,18 +74,17 @@ public class Controller : MonoBehaviour
 
         if (grounded)
         {
-            if (Input.GetButtonDown("Iframes") && canDodge && grounded) { currentState = states.iframes; }
             if (mode)
             {
-                if (!(attacking) && Input.GetButtonDown("Fire1")) { attacking = true; currentState = states.attack; attackNum = 1; }
-                if (!(attacking) && Input.GetButtonDown("Fire2")) { currentState = states.attack; attackNum = 2; }
-                if (!(attacking) && Input.GetButtonDown("Fire3")) { currentState = states.attack; attackNum = 3; }
+                if (!(attacking) && Input.GetButtonDown("Fire1")) { currentButton = "Fire1"; attacking = true; currentState = states.attack; attackNum = 1; }
+                if (!(attacking) && Input.GetButtonDown("Fire2")) { currentButton = "Fire2"; currentState = states.attack; attackNum = 2; }
+                if (!(attacking) && Input.GetButtonDown("Fire3")) { currentButton = "Fire3"; currentState = states.attack; attackNum = 3; }
             }
             else
             {
-                if (!(attacking) && Input.GetButtonDown("Fire1")) { currentState = states.attack; attackNum = 4; }
-                if (!(attacking) && Input.GetButtonDown("Fire2")) { currentState = states.attack; attackNum = 5; }
-                if (!(attacking) && Input.GetButtonDown("Fire3")) { currentState = states.attack; attackNum = 6; }
+                if (!(attacking) && Input.GetButtonDown("Fire1")) { currentButton = "Fire1"; currentState = states.attack; attackNum = 4; }
+                if (!(attacking) && Input.GetButtonDown("Fire2")) { currentButton = "Fire2"; currentState = states.attack; attackNum = 5; }
+                if (!(attacking) && Input.GetButtonDown("Fire3")) { currentButton = "Fire3"; currentState = states.attack; attackNum = 6; }
             }
 
 
@@ -240,7 +241,27 @@ public class Controller : MonoBehaviour
     private IEnumerator Attack()
     {
         yield return new WaitForSeconds(startTime);
-        Instantiate(currentSpell, leftHand.transform.position, Quaternion.identity);
+        string pos = currentSpell.GetComponent<Spell>().pos;
+        switch (pos)
+        {
+            case "Lhand":
+                Instantiate(currentSpell, leftHand.transform.position , Quaternion.identity);
+                break;
+            case "Rhand":
+                Instantiate(currentSpell, rightHand.transform.position, Quaternion.identity);
+                break;
+            case "Lfoot":
+                Instantiate(currentSpell, leftFoot.transform.position, Quaternion.identity);
+                break;
+            case "Rfoot":
+                Instantiate(currentSpell, rightFoot.transform.position, Quaternion.identity);
+                break;
+            case "Midrange":
+                Instantiate(currentSpell, transform.Find("Midrange").transform.position, Quaternion.identity);
+                break;
+        }
+        
+       // rb.AddForce(Vector3.right * 5000, ForceMode.Acceleration);
         yield return new WaitForSeconds(waitTime);
         attacking = false; wait = false; currentState = states.idle; 
     }
@@ -257,4 +278,11 @@ public class Controller : MonoBehaviour
     {
         anim.SetInteger("animation", 5); currentState = states.fall;
     }
+
+    public void endAnim()
+    {
+        if (Input.GetAxis(forward) != 0) { currentState = states.walk; } else currentState = states.idle;
+    }
+
+
 }
