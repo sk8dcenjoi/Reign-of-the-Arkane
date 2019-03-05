@@ -23,30 +23,40 @@ public class pyroClasm : MonoBehaviour
     {
         Debug.DrawRay(transform.position, Vector3.right, Color.green);
 
-        if (!Input.GetButtonUp(ourButton) && !letGo)
+        if (Input.GetButtonUp(ourButton))
         {
-            if (Input.GetButton(ourButton)) { Grow(); }
+            letGo = true;
+            detonate();
         }
-        else { letGo = true; detonate(); }
+        if (!letGo)
+        {
+            if (Input.GetButton(ourButton)) { Grow(); } else
+            {
+                detonate();
+            }
+        }
+
+
 
     }
 
 
     private void Grow()
     {
-        if (currentRange <= SphereRange)
+        if (currentRange < SphereRange)
         {
             currentRange += .2f;
 
         }
         else
-        {
+        {            
             detonate();
         }
     }
 
     private void detonate()
     {
+        Debug.Log("boom");
         GameObject.FindGameObjectWithTag("Player").GetComponent<Controller>().endAnim();
         foreach (var x in Enemies)
         {

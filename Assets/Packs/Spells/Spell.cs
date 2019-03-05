@@ -8,6 +8,7 @@ public class Spell : MonoBehaviour {
     public float startTime;
     public float waitTime;
     public string spawnLoc;
+    public string locName;
     public Vector3 rotation;
 
 	// Use this for initialization
