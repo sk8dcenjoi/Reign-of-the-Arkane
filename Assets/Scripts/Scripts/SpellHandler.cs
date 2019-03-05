@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 public class SpellHandler : MonoBehaviour
 {
@@ -15,10 +15,10 @@ public class SpellHandler : MonoBehaviour
 
     List<string> options;
     Dictionary<string, GameObject> currentSpells;
-    [SerializeField] Dropdown slotOne;
-    [SerializeField] GameObject one;
-    [SerializeField] GameObject two;
-    [SerializeField] GameObject three;
+    //[SerializeField] Dropdown slotOne;
+    //[SerializeField] GameObject one;
+    //[SerializeField] GameObject two;
+    //[SerializeField] GameObject three;
 
     // Use this for initialization
     void Start()
@@ -38,10 +38,10 @@ public class SpellHandler : MonoBehaviour
         //slotOne.onValueChanged.AddListener(delegate { DropdownValueChanged(slotOne); });
     }
 
-    void DropdownValueChanged(Dropdown change)
-    {
-        slotOne.captionText.text = "" + options[change.value];
-    }
+   // void DropdownValueChanged(Dropdown change)
+    //{
+        //slotOne.captionText.text = "" + options[change.value];
+    //}
 
     public void addSpell()
     {
