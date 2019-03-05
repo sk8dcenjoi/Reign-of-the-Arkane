@@ -8,6 +8,7 @@ TagManager:
   - Portal
   - FixX
   - FixZ
+  - Enemy
   layers:
   - Default
   - TransparentFX
