@@ -24,8 +24,4 @@ public class SpellEvents : MonoBehaviour {
     {
         anim.SetInteger("animation", 151);
     }
-    private void PyroClasmHold()
-    {
-        anim.SetInteger("animation", 1);
-    }
 }

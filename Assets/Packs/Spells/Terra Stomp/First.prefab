@@ -100,8 +100,7 @@ MonoBehaviour:
   animNum: 52
   startTime: 0.4
   waitTime: 0.4
-  spawnLoc: other
-  locName: Dual Pillars
+  spawnLoc: Dual Pillars
   rotation: {x: 0, y: 0, z: -65}
 --- !u!114 &114758479748732514
 MonoBehaviour:

@@ -16,9 +16,8 @@ public class Controller : MonoBehaviour
     private bool jumped, wait, swapping, mode;
     private Rigidbody rb;
     private string forward;
-    public bool left = false;
+    bool left = false;
     bool right = true;
-    public string currentButton;
 
     GameObject currentSpell;
     private float startTime, waitTime;
@@ -59,9 +58,9 @@ public class Controller : MonoBehaviour
         {
             if (mode)
             {
-                if (!(attacking) && Input.GetButtonDown("Fire1")) { currentButton = "Fire1"; attacking = true; currentState = states.attack; attackNum = 1; }
-                if (!(attacking) && Input.GetButtonDown("Fire2")) { currentButton = "Fire2"; attacking = true; currentState = states.attack; attackNum = 2; }
-                if (!(attacking) && Input.GetButtonDown("Fire3")) { currentButton = "Fire3"; attacking = true; currentState = states.attack; attackNum = 3; }
+                if (!(attacking) && Input.GetButtonDown("Fire1")) { attacking = true; currentState = states.attack; attackNum = 1; }
+                if (!(attacking) && Input.GetButtonDown("Fire2")) { attacking = true; currentState = states.attack; attackNum = 2; }
+                if (!(attacking) && Input.GetButtonDown("Fire3")) { attacking = true; currentState = states.attack; attackNum = 3; }
             }
             else
             {
@@ -211,8 +210,7 @@ public class Controller : MonoBehaviour
     {
         yield return new WaitForSeconds(startTime);
         string loc = currentSpell.GetComponent<Spell>().spawnLoc;
-        string name = currentSpell.GetComponent<Spell>().locName;
-
+        
         switch (loc)
         {
             case "leftHand":
@@ -227,8 +225,8 @@ public class Controller : MonoBehaviour
             case "rightFoot":
                 Instantiate(currentSpell, rightFoot.transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
                 break;
-            case "other":
-                Instantiate(currentSpell, transform.Find("SpawnLocs").transform.Find(name).transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
+            case "Dual Pillars":
+                Instantiate(currentSpell, transform.Find("SpawnLocs").transform.Find("Dual Pillars").transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
                 break;
             default:
                 Debug.Log("None Specified");
@@ -312,13 +310,4 @@ public class Controller : MonoBehaviour
     {
         currentState = states.idle;
     }
-
-    public void endAnim()
-    {
-        Debug.Log("now");
-        attacking = false;
-        if (Input.GetAxis(forward) != 0) { currentState = states.walk; } else currentState = states.idle;
-    }
-
-
 }
