@@ -36,6 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4857336828731092}
   - component: {fileID: 114833215829894672}
+  - component: {fileID: 114432443978542506}
   m_Layer: 0
   m_Name: Sword 1
   m_TagString: Untagged
@@ -99,6 +100,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 180}
+--- !u!114 &114432443978542506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423947499427634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db734700dfbe8346bf9d32d24482f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114833215829894672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,7 +126,7 @@ MonoBehaviour:
   startTime: 0.367
   waitTime: 0.3
   spawnLoc: rightHand
-  rotation: {x: 0, y: 0, z: 180}
+  rotation: {x: 0, y: 0, z: -180}
 --- !u!137 &137946313390305220
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
