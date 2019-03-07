@@ -13,11 +13,12 @@ public class Controller : MonoBehaviour
     private bool attacking;
     private int attackNum;
     private bool grounded = true;
-    private bool jumped, wait, swapping, mode;
+    private bool jumped, wait, swapping, mode, vertical;
     private Rigidbody rb;
     private string forward;
-    bool left = false;
+    public bool left = false;
     bool right = true;
+    bool once = true;
 
     GameObject currentSpell;
     private float startTime, waitTime;
@@ -45,9 +46,9 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.V)) {transform.localRotation *= Quaternion.Euler(0, -90, 0); forward = "Vertical"; }
 
-
-        if(Input.GetAxis(forward) > 0 && left && !attacking && currentState != states.waitDelay) { left = false; right = true; transform.localRotation *= Quaternion.Euler(0, 180, 0); }
+        if (Input.GetAxis(forward) > 0 && left && !attacking && currentState != states.waitDelay) { left = false; right = true; transform.localRotation *= Quaternion.Euler(0, 180, 0); }
         else if (Input.GetAxis(forward) < 0 && right && !attacking && currentState != states.waitDelay) { right = false; left= true; transform.localRotation *= Quaternion.Euler(0, 180, 0); }
 
 
@@ -103,11 +104,12 @@ public class Controller : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.Find("JumpCast").transform.position, transform.Find("JumpCast").transform.forward, out hit, 100))
                 {
-                    if (hit.distance < .4f) { currentState = states.land; } else { grounded = false; }
+                    Debug.Log(hit.distance);
+                    if (hit.distance < .7f) { currentState = states.land; } else { grounded = false; }
                 }
                 if (Physics.Raycast(transform.Find("JumpCastTwo").transform.position, transform.Find("JumpCastTwo").transform.forward, out hit, 100))
                 {
-                    if (hit.distance < .4f) { currentState = states.land; } else { grounded = false; }
+                    if (hit.distance < .7f) { currentState = states.land; } else { grounded = false; }
                 }
                 break;
             case states.land:
@@ -225,8 +227,8 @@ public class Controller : MonoBehaviour
             case "rightFoot":
                 Instantiate(currentSpell, rightFoot.transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
                 break;
-            case "Dual Pillars":
-                Instantiate(currentSpell, transform.Find("SpawnLocs").transform.Find("Dual Pillars").transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
+            case "other":
+                Instantiate(currentSpell, transform.Find("SpawnLocs").transform.Find(currentSpell.GetComponent<Spell>().spawnName).transform.position, Quaternion.Euler(currentSpell.GetComponent<Spell>().rotation));
                 break;
             default:
                 Debug.Log("None Specified");
@@ -302,6 +304,23 @@ public class Controller : MonoBehaviour
                 case "C2":
                     transform.position = new Vector3(transform.position.x, transform.position.y, 966);
                     break;
+            }
+        }
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag == "Hallways")
+        {
+            if (Input.GetAxis("Vertical") > .9 && once && !vertical)
+            {
+                
+                vertical = true;
+                if(once) { transform.localRotation *= Quaternion.Euler(0, -90, 0);}
+                forward = "Vertical";
+                once = false;
+
             }
         }
     }

@@ -27,14 +27,14 @@ public class TerraStomp : MonoBehaviour {
         {
             if(transform.localScale.y < maxSize)
             {
-                transform.localScale += new Vector3(0, .5f, 0);
+                transform.localScale += new Vector3(0, 1f, 0);
             }
         }
         else
         {
             if (transform.localScale.y < maxSize * 1.01f)
             {
-                transform.localScale += new Vector3(0, .4f, 0);
+                transform.localScale += new Vector3(0, .8f, 0);
             }
         }
 

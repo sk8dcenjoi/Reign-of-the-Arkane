@@ -8,17 +8,22 @@ public class FireStrike : MonoBehaviour {
     [SerializeField] float speed;
     private GameObject player;
     private Animator anim;
+    bool goLeft;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindGameObjectWithTag("Player");
         anim = player.GetComponent<Animator>();
         Destroy(this.gameObject, destroyTime);
+        if (player.GetComponent<Controller>().left) { goLeft = true; }
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        this.GetComponent<Rigidbody>().AddForce(transform.forward * speed, ForceMode.Acceleration);
+        if(goLeft) { this.GetComponent<Rigidbody>().AddForce(Camera.main.transform.right * -speed, ForceMode.Acceleration);}
+        else { this.GetComponent<Rigidbody>().AddForce(Camera.main.transform.right * speed, ForceMode.Acceleration); }
+        
     }
 
     private void OnTriggerEnter(Collider other)
