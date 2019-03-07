@@ -8,6 +8,7 @@ TagManager:
   - Portal
   - FixX
   - FixZ
+  - Hallways
   layers:
   - Default
   - TransparentFX
