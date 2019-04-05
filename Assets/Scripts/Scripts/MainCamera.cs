@@ -33,7 +33,7 @@ public class MainCamera : MonoBehaviour
             nextRot = (int)rot.y;
             if(Input.GetAxis("Horizontal") < 0)
             {
-                right = false; if (nextRot == 0) { nextRot = 360 - 90; } else { nextRot = nextRot + 90; }
+                right = false; if (nextRot == 0) { nextRot = nextRot + 90; } else { nextRot = nextRot + 90; }
             } else { right = true; if (nextRot == 0) { nextRot = 360 - 90; } else { nextRot = nextRot - 90; } }
         }
 
@@ -44,7 +44,7 @@ public class MainCamera : MonoBehaviour
         bool cont = true;
         float distance = nextRot - transform.rotation.eulerAngles.y;
         if(distance > -2 && distance < 2) { cont = false; }
-
+        //Debug.Log(distance);
 
         if (cont)
         {

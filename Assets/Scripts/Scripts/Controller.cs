@@ -279,10 +279,10 @@ public class Controller : MonoBehaviour
             switch (name)
             {
                 case "B1":
-                    transform.position = new Vector3(965, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(475, transform.position.y, transform.position.z);
                     break;
                 case "B2":
-                    transform.position = new Vector3(965, transform.position.y, transform.position.z);
+                    transform.position = new Vector3(475, transform.position.y, transform.position.z);
                     break;
                 case "D1":
                     transform.position = new Vector3(965, transform.position.y, transform.position.z);
@@ -299,16 +299,16 @@ public class Controller : MonoBehaviour
             switch (name)
             {
                 case "A1":
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 35);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 25);
                     break;
                 case "A2":
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 35);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 25);
                     break;
                 case "C1":
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 966);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 25);
                     break;
                 case "C2":
-                    transform.position = new Vector3(transform.position.x, transform.position.y, 966);
+                    transform.position = new Vector3(transform.position.x, transform.position.y, 25);
                     break;
             }
         }
