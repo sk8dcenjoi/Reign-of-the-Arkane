@@ -40,11 +40,11 @@ public class SpellHandler : MonoBehaviour
 
     void DropdownValueChanged(Dropdown change)
     {
-        slotOne.captionText.text = "" + options[change.value];
+        //slotOne.captionText.text = "" + options[change.value];
     }
 
     public void addSpell()
     {
-        options.Add("");
+        //options.Add("");
     }
 }
