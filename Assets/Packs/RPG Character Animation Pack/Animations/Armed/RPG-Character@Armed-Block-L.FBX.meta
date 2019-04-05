@@ -244,6 +244,7 @@ ModelImporter:
     4300016: WeaponR
     4300018: WeaponL
     7400000: Armed-Block-L
+    7400002: FUCKER
     9500000: //RootNode
     11100000: //RootNode
     13700000: Soldier_Mesh
@@ -303,7 +304,23 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0
+        functionName: Cast
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 79bb22dfb4226a64d9eb6c279bb32d24,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5002766
+        functionName: Cast
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 79bb22dfb4226a64d9eb6c279bb32d24,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
