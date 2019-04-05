@@ -16,7 +16,7 @@ public class TerraStomp : MonoBehaviour {
         Destroy(this.gameObject, 2);
         if (second != null)
         {
-            oops = Instantiate(second, loc, Quaternion.Euler(this.gameObject.GetComponent<Spell>().rotation));
+            oops = Instantiate(second, loc, Quaternion.Euler(Vector3.right + this.gameObject.GetComponent<Spell>().rotation));
         }
         
     }

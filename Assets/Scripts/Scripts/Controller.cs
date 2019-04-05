@@ -19,6 +19,9 @@ public class Controller : MonoBehaviour
     public bool left = false;
     bool right = true;
     bool once = true;
+    bool hault;
+    private float distance;
+    private Transform hallwayCube;
 
     GameObject currentSpell;
     private float startTime, waitTime;
@@ -46,7 +49,6 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V)) {transform.localRotation *= Quaternion.Euler(0, -90, 0); forward = "Vertical"; }
 
         if (Input.GetAxis(forward) > 0 && left && !attacking && currentState != states.waitDelay) { left = false; right = true; transform.localRotation *= Quaternion.Euler(0, 180, 0); }
         else if (Input.GetAxis(forward) < 0 && right && !attacking && currentState != states.waitDelay) { right = false; left= true; transform.localRotation *= Quaternion.Euler(0, 180, 0); }
@@ -86,15 +88,14 @@ public class Controller : MonoBehaviour
         {
             case states.idle:
                 grounded = true;
-                //Jump();
                 if (!(attacking) && Input.GetButtonDown("Fire1")) { currentState = states.attack; attackNum = 1; }
                 anim.SetInteger("animation", 1);
                 if (Input.GetAxis(forward) > 0 || Input.GetAxis(forward) < 0) { currentState = states.walk; }
                 break;
             case states.walk:
                 
-                if (!attacking) {Jump(); anim.SetInteger("animation", 2); }               
-                if (!(Input.GetAxis(forward) > 0 || Input.GetAxis(forward) < 0)) { currentState = states.idle; }
+                if (!attacking && !hault) {Jump(); anim.SetInteger("animation", 2); }               
+                if (Input.GetAxis(forward) == 0) { currentState = states.idle; }
                 break;
             case states.jump:
                 anim.SetInteger("animation", 4);
@@ -104,7 +105,6 @@ public class Controller : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.Find("JumpCast").transform.position, transform.Find("JumpCast").transform.forward, out hit, 100))
                 {
-                    Debug.Log(hit.distance);
                     if (hit.distance < .7f) { currentState = states.land; } else { grounded = false; }
                 }
                 if (Physics.Raycast(transform.Find("JumpCastTwo").transform.position, transform.Find("JumpCastTwo").transform.forward, out hit, 100))
@@ -284,6 +284,12 @@ public class Controller : MonoBehaviour
                 case "B2":
                     transform.position = new Vector3(965, transform.position.y, transform.position.z);
                     break;
+                case "D1":
+                    transform.position = new Vector3(965, transform.position.y, transform.position.z);
+                    break;
+                case "D2":
+                    transform.position = new Vector3(965, transform.position.y, transform.position.z);
+                    break;
             }
         }
         if (other.transform.tag == "FixZ")
@@ -315,14 +321,14 @@ public class Controller : MonoBehaviour
         {
             if (Input.GetAxis("Vertical") > .9 && once && !vertical)
             {
-                
                 vertical = true;
                 if(once) { transform.localRotation *= Quaternion.Euler(0, -90, 0);}
                 forward = "Vertical";
                 once = false;
-
             }
-        }
+
+            if(vertical && !once) { vertical = false; once = true; if (once) { transform.localRotation *= Quaternion.Euler(0, -90, 0); } }
+        } 
     }
 
     public void ExitPortal()
